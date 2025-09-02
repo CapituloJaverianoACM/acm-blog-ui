@@ -1,9 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import type { EditorState } from "../../app/core/types";
 import { generateSlug } from "../../app/core/utils/slug";
+import { parseMarkdownFile } from "../../app/core/utils/parseMarkdownFile";
 import { useAutosave } from "../../app/core/autosave/useAutosave";
+import MarkdownRenderer from "../../app/core/markdown/MarkdownRenderer";
 import {
   validateContent,
   validateCoordinates,
@@ -37,6 +39,8 @@ export default function EditorShell({ initialDraftId }: EditorShellProps) {
 
   const [slugManuallyEdited, setSlugManuallyEdited] = useState(false);
 
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+
   // Autosave hook (persists to localStorage)
   const { lastSavedAt, isSaving, error, saveNow, loadFromStorage } = useAutosave(
     state,
@@ -54,6 +58,37 @@ export default function EditorShell({ initialDraftId }: EditorShellProps) {
     () => (initialDraftId ? "Editing draft" : "New draft"),
     [initialDraftId]
   );
+
+  function onUploadMdClick() {
+  fileInputRef.current?.click();
+}
+
+function onFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0];
+  if (!file) return;
+
+  if (state.content.trim().length > 0) {
+    const proceed = window.confirm(
+      "Uploading a new file will replace your current content. Continue?"
+    );
+    if (!proceed) return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = () => {
+    const text = reader.result as string;
+    const parsed = parseMarkdownFile(text);
+
+    setState((prev) => ({
+      ...prev,
+      content: parsed.content,
+      title: parsed.title ?? prev.title,
+      excerpt: parsed.excerpt ?? prev.excerpt,
+      published: parsed.published ?? prev.published,
+    }));
+  };
+  reader.readAsText(file);
+}
 
    // Keyboard shortcuts: Ctrl/Cmd+S (save), Ctrl/Cmd+P (toggle published)
   useEffect(() => {
@@ -110,10 +145,6 @@ export default function EditorShell({ initialDraftId }: EditorShellProps) {
   }
 
   // Toolbar buttons
-  function onUploadMd() {
-    // Implement in Step 5
-    alert("Upload .md coming in Step 5");
-  }
 
   function onSaveDraft() {
     saveNow(); // immediate persistence
@@ -157,10 +188,17 @@ export default function EditorShell({ initialDraftId }: EditorShellProps) {
 
         {/* Toolbar */}
         <div className="flex items-center gap-2">
+            <input
+                ref={fileInputRef}
+                type="file"
+                accept=".md"
+                onChange={onFileSelected}
+                className="hidden"
+            />
           <button
             type="button"
             className="rounded-md border px-3 py-1.5 text-sm hover:bg-gray-50"
-            onClick={onUploadMd}
+            onClick={onUploadMdClick}
             title="Upload a .md file"
           >
             Upload .md
@@ -372,17 +410,16 @@ export default function EditorShell({ initialDraftId }: EditorShellProps) {
           )}
         </div>
 
-        {/* Preview placeholder (Step 6 will render Markdown) */}
+        {/* Preview */}
         <div className="flex min-h-[420px] flex-col rounded-md border">
-          <div className="border-b px-3 py-2 text-sm font-medium">Preview</div>
-          <div className="prose prose-neutral max-w-none p-3">
-            <p className="text-gray-500">
-              Live Markdown preview will appear here (Step 6).
-            </p>
-            <p className="mt-2 text-xs text-gray-400">
-              Current slug: <code>{state.slug || "(empty)"}</code>
-            </p>
-          </div>
+        <div className="border-b px-3 py-2 text-sm font-medium">Preview</div>
+        <div className="p-3">
+            {state.content.trim() ? (
+            <MarkdownRenderer content={state.content} />
+            ) : (
+            <p className="text-gray-500">Start typing Markdown to see the preview.</p>
+            )}
+        </div>
         </div>
       </section>
     </div>
