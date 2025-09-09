@@ -14,6 +14,7 @@ import {
   validateTitle,
 } from "../../core/validators";
 import { Image, Bold, Underline } from "lucide-react";
+import { MapPicker } from "../GoogleMap/GoogleMap";
 
 type EditorShellProps = {
   initialDraftId?: string;
@@ -345,49 +346,23 @@ function onFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
 
       {/* Coordinates */}
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
-        <div className="flex flex-col">
-          <label className="mb-1 text-sm font-medium" htmlFor="latitude">
-            Latitude
-          </label>
-          <input
-            id="latitude"
-            type="text"
-            inputMode="decimal"
-            className={`rounded-md border px-3 py-2 ${
-              coordsError ? "border-red-400" : "border-gray-300"
-            }`}
-            placeholder="e.g., 4.7110"
-            value={state.latitude ?? ""}
-            onChange={(e) => onLatitudeChange(e.target.value)}
-            aria-invalid={!!coordsError}
-            aria-describedby="coords-error"
+        <div className="col-span-2 flex flex-col">
+          <label className="mb-1 text-sm font-medium">Location</label>
+          <MapPicker
+            latitude={state.latitude}
+            longitude={state.longitude}
+            onChange={(lat, lng) =>
+              setState((prev) => ({ ...prev, latitude: lat, longitude: lng }))
+            }
           />
+          {coordsError && (
+            <p id="coords-error" className="text-sm text-red-600 mt-2">
+              {coordsError}
+            </p>
+          )}
         </div>
-        <div className="flex flex-col">
-          <label className="mb-1 text-sm font-medium" htmlFor="longitude">
-            Longitude
-          </label>
-          <input
-            id="longitude"
-            type="text"
-            inputMode="decimal"
-            className={`rounded-md border px-3 py-2 ${
-              coordsError ? "border-red-400" : "border-gray-300"
-            }`}
-            placeholder="e.g., -74.0721"
-            value={state.longitude ?? ""}
-            onChange={(e) => onLongitudeChange(e.target.value)}
-            aria-invalid={!!coordsError}
-            aria-describedby="coords-error"
-          />
-        </div>
-
-        {coordsError && (
-          <p id="coords-error" className="text-sm text-red-600 md:col-span-2">
-            {coordsError}
-          </p>
-        )}
       </section>
+
 
       {/* Two-pane editor */}
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
