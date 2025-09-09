@@ -1,18 +1,18 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { EditorState } from "../../app/core/types";
-import { generateSlug } from "../../app/core/utils/slug";
-import { parseMarkdownFile } from "../../app/core/utils/parseMarkdownFile";
-import { useAutosave } from "../../app/core/autosave/useAutosave";
-import MarkdownRenderer from "../../app/core/markdown/MarkdownRenderer";
+import type { EditorState } from "../../core/types";
+import { generateSlug } from "../../core/utils/slug";
+import { parseMarkdownFile } from "../../core/utils/parseMarkdownFile";
+import { useAutosave } from "../../core/autosave/useAutosave";
+import MarkdownRenderer from "../../core/markdown/MarkdownRenderer";
 import {
   validateContent,
   validateCoordinates,
   validateExcerpt,
   validateSlug,
   validateTitle,
-} from "../../app/core/validators";
+} from "../../core/validators";
 import { Image, Bold, Underline } from "lucide-react";
 
 type EditorShellProps = {
