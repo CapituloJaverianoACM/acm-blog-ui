@@ -13,6 +13,7 @@ import {
   validateSlug,
   validateTitle,
 } from "../../app/core/validators";
+import { Image, Bold, Underline } from "lucide-react";
 
 type EditorShellProps = {
   initialDraftId?: string;
@@ -392,23 +393,51 @@ function onFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
       <section className="grid grid-cols-1 gap-4 md:grid-cols-2">
         {/* Write */}
         <div className="flex min-h-[420px] flex-col rounded-md border">
-          <div className="border-b px-3 py-2 text-sm font-medium">Write</div>
-          <textarea
-            className={`min-h-[380px] flex-1 resize-none bg-white p-3 outline-none ${
-              contentError ? "ring-1 ring-red-400" : ""
-            }`}
-            placeholder="Write your Markdown here…"
-            value={state.content}
-            onChange={(e) => onContentChange(e.target.value)}
-            aria-invalid={!!contentError}
-            aria-describedby="content-error"
-          />
-          {contentError && (
-            <p id="content-error" className="px-3 pb-2 text-xs text-red-600">
-              {contentError}
-            </p>
-          )}
-        </div>
+          {/* Tool Bar */}
+          <div className="flex items-center gap-2 border-b px-3 py-2 text-sm font-medium">
+            <span className="px-3 py-2 text-sm font-medium">Write</span>
+            <button
+              type="button"
+              className="px-2 py-1 rounded hover:bg-gray-200"
+              onClick={() => document.execCommand("bold")}
+            >
+              <Bold className="w-5 h-5"></Bold>
+            </button>
+            <button
+              type="button"
+              className="px-2 py-1 rounded hover:bg-gray-200 underline"
+              onClick={() => document.execCommand("underline")}
+            >
+              <Underline className="w-5 h-5"></Underline>
+            </button>
+            <button
+              type="button"
+              className="px-2 py-1 rounded hover:bg-gray-200"
+            >  
+              <Image className="w-5 h-5"/>
+            </button>
+          </div>
+
+  {/* Text field */}
+  <textarea
+    className={`min-h-[380px] flex-1 resize-none bg-white p-3 outline-none text-gray-800 ${
+      contentError ? "ring-1 ring-red-400" : ""
+    }`}
+    placeholder="Write your Markdown here…"
+    value={state.content}
+    onChange={(e) => onContentChange(e.target.value)}
+    aria-invalid={!!contentError}
+    aria-describedby="content-error"
+  />
+
+  {/* Error message */}
+  {contentError && (
+    <p id="content-error" className="px-3 pb-2 text-xs text-red-600">
+      {contentError}
+    </p>
+  )}
+</div>
+
 
         {/* Preview */}
         <div className="flex min-h-[420px] flex-col rounded-md border">
@@ -423,5 +452,6 @@ function onFileSelected(e: React.ChangeEvent<HTMLInputElement>) {
         </div>
       </section>
     </div>
+    
   );
 }
