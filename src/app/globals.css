@@ -1,26 +1,133 @@
 @import "tailwindcss";
 
+/* =================== */
+/*   Brand tokens      */
+/* =================== */
 :root {
+  /* Colors */
+  --mist: #DDE5F8;
+  --crayon: #3A75FF;
+  --electric: #004AF5;
+  --ultramarine: #022983;
+  --night: #00081B;
+
+  /* Text */
+  --text-dark: #ffffff; /* on dark backgrounds */
+  --text-light: #0B1220; /* on light backgrounds */
+
+  /* Surface defaults (light) */
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: var(--text-light);
+}
+
+.dark {
+  /* Surface defaults (dark) */
+  --background: #0a0a0a;
+  --foreground: var(--text-dark);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-mist: var(--mist);
+  --color-crayon: var(--crayon);
+  --color-electric: var(--electric);
+  --color-ultramarine: var(--ultramarine);
+  --color-night: var(--night);
+  --font-sans: var(--font-montserrat);
+  --font-display: var(--font-bcliguria);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =================== */
+/*   Custom Fonts      */
+/* =================== */
+@font-face {
+  font-family: "BCLiguria";
+  src: url("/fonts/BC Liguria B Test B.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.font-liguria {
+  font-family: "BCLiguria", sans-serif;
+}
+
+/* =================== */
+/*   Gradients         */
+/* =================== */
+.hero-gradient-dark {
+  background: linear-gradient(to bottom, var(--electric), var(--night));
+}
+
+.hero-gradient-light {
+  background: linear-gradient(to bottom, var(--mist), var(--crayon));
+}
+
+/* CTA dark gradient tipo referencia */
+.cta-gradient-dark {
+  background: linear-gradient(to bottom, #000000, #0B1220);
+}
+
+/* =================== */
+/*   Base              */
+/* =================== */
+html, body {
+  height: 100%;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Focus outline for accessibility */
+:where(a, button, input, textarea):focus-visible {
+  outline: 2px solid var(--crayon);
+  outline-offset: 2px;
+}
+
+/* =================== */
+/*   Swiper            */
+/* =================== */
+.custom-swiper {
+  position: relative;
+  padding: 0 1rem 2.5rem; /* espacio inferior para los dots */
+  overflow: visible;
+
+  /* Variables de Swiper para bullets */
+  --swiper-pagination-color: var(--crayon);
+  --swiper-pagination-bullet-inactive-color: var(--crayon);
+  --swiper-pagination-bullet-inactive-opacity: 0.35;
+  --swiper-pagination-bullet-size: 8px;
+  --swiper-pagination-bullet-horizontal-gap: 6px;
+}
+
+.dark .custom-swiper {
+  --swiper-pagination-color: #ffffff;
+}
+
+/* Oculta flechas si Swiper las llegara a renderizar */
+.custom-swiper .swiper-button-prev,
+.custom-swiper .swiper-button-next {
+  display: none !important;
+}
+
+/* Dots centrados debajo del carrusel */
+.custom-swiper .swiper-pagination {
+  position: static;
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.custom-swiper .swiper-pagination-bullet {
+  opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.35) !important;
+  width: var(--swiper-pagination-bullet-size, 8px);
+  height: var(--swiper-pagination-bullet-size, 8px);
+  margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 6px) !important;
+}
+
+.custom-swiper .swiper-pagination-bullet-active {
+  opacity: 1 !important;
 }
