@@ -1,4 +1,21 @@
+/* Montserrat desde Google Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
 @import "tailwindcss";
+
+/* ======= FUENTES ======= */
+
+/* BC Liguria desde public/fonts */
+@font-face {
+  font-family: "BCLiguriaLocal";
+  src: url("/fonts/BC%20Liguria%20B%20Test%20B.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-liguria {
+  font-family: "BCLiguria", sans-serif;
+}
 
 :root {
   --background: #ffffff;
