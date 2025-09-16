@@ -1,0 +1,70 @@
+@import "tailwindcss";
+
+/* 1) Montserrat desde Google (gratuita) para la fecha */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap");
+
+/* 2) BC Liguria desde Adobe Fonts (reemplaza KIT_ID por el tuyo) */
+@import url("https://use.typekit.net/KIT_ID.css");
+
+/* =================== */
+/*   Brand tokens      */
+/* =================== */
+:root {
+  --mist: #DDE5F8;
+  --crayon: #3A75FF;
+  --electric: #004AF5;
+  --ultramarine: #022983;
+  --night: #00081B;
+
+  --text-dark: #ffffff; /* on dark */
+  --text-light: #0B1220; /* on light */
+
+  --background: #ffffff;
+  --foreground: var(--text-light);
+}
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: var(--text-dark);
+}
+
+/* =================== */
+/*   Tailwind v4 @theme*/
+/* =================== */
+/* NOTA: la familia exacta que expone Adobe para Liguria suele verse como
+   font-family: "bc-liguria", sans-serif;  (verifica en el CSS que te entrega Adobe)
+   Si el nombre difiere, cambia "bc-liguria" por el que veas en el CSS de Typekit. */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-mist: var(--mist);
+  --color-crayon: var(--crayon);
+  --color-electric: var(--electric);
+  --color-ultramarine: var(--ultramarine);
+  --color-night: var(--night);
+
+  /* Fuentes expuestas como utilidades Tailwind */
+  --font-montserrat: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-bcliguria: "bc-liguria", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Utilidades prácticas si prefieres clases directas */
+.font-montserrat { font-family: var(--font-montserrat); }
+.font-liguria    { font-family: var(--font-bcliguria); }
+
+/* =================== */
+/*   Base              */
+/* =================== */
+html, body { height: 100%; }
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+:where(a, button, input, textarea):focus-visible {
+  outline: 2px solid var(--crayon);
+  outline-offset: 2px;
+}
+
+/* (…tu CSS adicional, Gradients, Swiper, etc. puede quedarse igual…) */
