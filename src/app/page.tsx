@@ -9,21 +9,36 @@ import "swiper/css/pagination";
 export default function Home() {
   return (
     <main className="min-h-screen">
-      {/* Hero section */}
-      <section className="relative flex min-h-screen items-center justify-center px-6">
-        <div className="absolute inset-0 -z-10 hero-gradient-light dark:hero-gradient-dark" />
+      {/* Hero section (Home) */}
+      <section
+       id="top"
+        className="
+          relative
+          -mt-16 md:-mt-20 lg:-mt-24           
+          pt-16 md:pt-20 lg:pt-24              
+          pb-12 md:pb-14 lg:pb-16             
+         min-h-[calc(100vh+64px)]            
+          md:min-h-[calc(100vh+80px)]         
+          lg:min-h-[calc(100vh+96px)]          
+          flex items-center justify-center
+          px-6 scroll-mt-28
+        "
+      >
+        <div className="absolute inset-0 -z-10 hero-gradient-light dark:hero-gradient-dark fade-bottom-edge" />
 
-        <div className="relative z-10 mx-auto max-w-5xl text-center pt-16 sm:pt-20 md:pt-24">
-          <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-liguria text-foreground dark:text-white">
+        <div className="relative z-10 mx-auto max-w-5xl text-center">
+          <h1 className="font-extrabold leading-[0.95] tracking-tight font-liguria text-foreground dark:text-white text-[clamp(42px,9vw,132px)] [text-shadow:0_2px_12px_rgba(0,8,27,0.28)]">
             Rookies Blog
           </h1>
-          <p className="mt-6 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto text-foreground/80 dark:text-white/90">
+
+          {/* Párrafo en flujo normal, sin absolute */}
+          <p className="mt-6 text-[20px] leading-relaxed max-w-3xl mx-auto text-foreground/80 dark:text-white/90">
             Un espacio para compartir nuestras experiencias y actividades como
             comunidad de estudiantes apasionados por la tecnología y la innovación!
           </p>
-          
-          {/* botones centrados y con más aire */}
-          <div className="mt-12 sm:mt-14 flex flex-col items-center gap-8 sm:flex-row sm:justify-center">
+
+          {/* Botones con buen espaciado debajo del párrafo */}
+          <div className="mt-10 sm:mt-12 flex flex-col items-center gap-6 sm:flex-row sm:justify-center">
             <CTAButton href="/blog">Leer artículos</CTAButton>
             <CTAButton href="https://www.acmjaveriana.tech/" external>
               Sobre nosotros
@@ -31,19 +46,23 @@ export default function Home() {
           </div>
         </div>
 
-        <p className="absolute bottom-6 left-0 right-0 text-center text-foreground/80 dark:text-white/90 text-sm">
+        {/* Lema fijo al borde inferior del hero */}
+        <p className="absolute left-0 right-0 bottom-16 sm:bottom-20 md:bottom-24 lg:bottom-28 text-center text-foreground/80 dark:text-white/90 text-sm pointer-events-none">
           ¡La actitud es la clave!
         </p>
       </section>
 
-      {/* Section 1 – Blog reading area (carousel con dots) */}
-      <section className="bg-background text-foreground px-6 py-20">
+      {/* Section 1 – Artículos */}
+      <section
+        id="articulos"
+        className="bg-background text-foreground px-6 pt-28 pb-36 md:pt-32 md:pb-44 scroll-mt-28"
+      >
         <div className="mx-auto max-w-6xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center">
             Explora nuestros artículos
           </h2>
 
-          <div className="mt-10">
+        <div className="mt-10">
             <Swiper
               modules={[Autoplay, Pagination]}
               spaceBetween={30}
@@ -81,15 +100,18 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 2 – Call to action (ajustada con gradiente del tamaño correcto) */}
-      <section className="relative px-6 py-[120px] text-center flex items-center justify-center">
-        <div className="absolute inset-0 -z-10 hero-gradient-light dark:hero-gradient-dark" />
+      {/* Section 2 – Crear */}
+      <section
+        id="crear"
+        className="relative px-6 py-[120px] text-center flex items-center justify-center scroll-mt-28"
+      >
+        <div className="absolute inset-0 -z-10 hero-gradient-light dark:hero-gradient-dark fade-both-extend" />
         <div className="relative mx-auto max-w-5xl">
           <h2 className="text-5xl sm:text-6xl md:text-7xl font-extrabold tracking-tight font-liguria text-foreground dark:text-white">
             Crea tu blog ahora mismo
           </h2>
           <p className="mt-6 text-lg sm:text-xl md:text-2xl text-foreground/80 dark:text-white/90 max-w-3xl mx-auto">
-            Dale voz a tus ideas, experiencias y proyectos tecnológicos. 
+            Dale voz a tus ideas, experiencias y proyectos tecnológicos.
           </p>
           <div className="mt-10">
             <CTAButton href="/editor" size="lg">
@@ -99,8 +121,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Section 3 – Trending topics (tarjetas más altas, estáticas) */}
-      <section className="bg-background text-foreground px-6 py-[80px]">
+      {/* Section 3 – Trending */}
+      <section
+        id="trending"
+        className="bg-background text-foreground px-6 py-[80px] scroll-mt-28"
+      >
         <div className="mx-auto max-w-6xl">
           <h2 className="text-3xl sm:text-4xl font-bold text-center">Temas trending</h2>
 
@@ -128,4 +153,6 @@ export default function Home() {
     </main>
   );
 }
+
+
 

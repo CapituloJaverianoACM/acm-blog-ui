@@ -12,8 +12,8 @@
   --night: #00081B;
 
   /* Text */
-  --text-dark: #ffffff; /* on dark backgrounds */
-  --text-light: #0B1220; /* on light backgrounds */
+  --text-dark: #ffffff;      /* on dark backgrounds */
+  --text-light: #0B1220;     /* on light backgrounds */
 
   /* Surface defaults (light) */
   --background: #ffffff;
@@ -26,6 +26,7 @@
   --foreground: var(--text-dark);
 }
 
+/* (opcional) mapeo inline para Tailwind tokens */
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -48,39 +49,31 @@
   font-style: normal;
 }
 
-.font-liguria {
-  font-family: "BCLiguria", sans-serif;
-}
+.font-liguria { font-family: "BCLiguria", sans-serif; }
 
 /* =================== */
-/*   Gradients         */
+/*   Gradients activos */
 /* =================== */
-.hero-gradient-dark {
-  background: linear-gradient(to bottom, var(--electric), var(--night));
-}
-
+/* HERO — mockup exacto (arriba #DDE5F8, abajo #3A75FF) */
 .hero-gradient-light {
-  background: linear-gradient(to bottom, var(--mist), var(--crayon));
+  background-image: linear-gradient(180deg, var(--mist) 0%, var(--crayon) 100%);
 }
-
-/* CTA dark gradient tipo referencia */
-.cta-gradient-dark {
-  background: linear-gradient(to bottom, #000000, #0B1220);
+/* Versión dark del hero */
+.hero-gradient-dark {
+  background-image: linear-gradient(180deg, var(--electric) 0%, var(--ultramarine) 60%, var(--night) 100%);
 }
 
 /* =================== */
 /*   Base              */
 /* =================== */
-html, body {
-  height: 100%;
+html, body { 
+  height: 100%; 
+  margin: 0;
 }
+html { scroll-behavior: smooth; }
+body { background: var(--background); color: var(--foreground); }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-}
-
-/* Focus outline for accessibility */
+/* Focus outline accesible */
 :where(a, button, input, textarea):focus-visible {
   outline: 2px solid var(--crayon);
   outline-offset: 2px;
@@ -101,33 +94,41 @@ body {
   --swiper-pagination-bullet-size: 8px;
   --swiper-pagination-bullet-horizontal-gap: 6px;
 }
-
-.dark .custom-swiper {
-  --swiper-pagination-color: #ffffff;
-}
+.dark .custom-swiper { --swiper-pagination-color: #ffffff; }
 
 /* Oculta flechas si Swiper las llegara a renderizar */
 .custom-swiper .swiper-button-prev,
-.custom-swiper .swiper-button-next {
-  display: none !important;
-}
+.custom-swiper .swiper-button-next { display: none !important; }
 
 /* Dots centrados debajo del carrusel */
 .custom-swiper .swiper-pagination {
   position: static;
   margin-top: 12px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: flex; justify-content: center; align-items: center;
 }
-
 .custom-swiper .swiper-pagination-bullet {
   opacity: var(--swiper-pagination-bullet-inactive-opacity, 0.35) !important;
   width: var(--swiper-pagination-bullet-size, 8px);
   height: var(--swiper-pagination-bullet-size, 8px);
   margin: 0 var(--swiper-pagination-bullet-horizontal-gap, 6px) !important;
 }
+.custom-swiper .swiper-pagination-bullet-active { opacity: 1 !important; }
 
-.custom-swiper .swiper-pagination-bullet-active {
-  opacity: 1 !important;
+/* =================== */
+/*   Fades en uso      */
+/* =================== */
+/* Hero: degradado ocupa prácticamente todo y se desvanece al final */
+.fade-bottom-edge {
+  -webkit-mask-image: linear-gradient(to bottom, black 0%, black 98.5%, transparent 100%);
+          mask-image: linear-gradient(to bottom, black 0%, black 98.5%, transparent 100%);
+}
+/* Crear: más alto, con desvanecido corto arriba/abajo */
+.fade-both-extend {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, black 6%, black 94%, transparent 100%);
+}
+/* Footer: desvanecido breve en la parte superior */
+.fade-top-short {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 100%);
+          mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 100%);
 }
