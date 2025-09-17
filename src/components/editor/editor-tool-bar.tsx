@@ -3,7 +3,7 @@ import { Image, Save, Type } from "lucide-react";
 
 export default function Toolbar() {
   return (
-    <div className="w-full bg-blue-600 rounded-t-2xl px-4 py-2 flex items-center gap-6">
+    <div className="w-full bg-[#004AF5] rounded-t-2xl px-4 py-2 flex items-center gap-6">
       {/* Icono de imagen */}
       <button className="flex items-center gap-2 text-white hover:opacity-80 transition">
         <Image size={20} />

@@ -9,7 +9,7 @@ export default function BlogBodyEditor() {
             <textarea
             placeholder="Escribe el contenido aquí..."
             rows={6}
-            className="w-full px-4 py-2 border rounded-b-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"/>
+            className="w-full px-4 py-2 bg-[#DDE5F8] border rounded-b-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"/>
         </div>
     );
 }
