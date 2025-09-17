@@ -2,6 +2,7 @@
 
 import Header from "@/components/general/acm-header";
 import BlogBodyEditor from "@/components/editor/blog-body-editor";
+import BlogTitle from "@/components/general/blog-title";
 
 
 export default function Home() {
