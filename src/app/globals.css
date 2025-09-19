@@ -18,8 +18,15 @@
 }
 
 :root {
-  --background: #ffffff;
+  --background: #DDE5F8;
   --foreground: #171717;
+  --text-area: #FFFFFF;
+}
+
+.dark {
+    --background: #00081B;
+    --foreground: #ededed;
+    --text-area: #DDE5F8;
 }
 
 @theme inline {
@@ -31,8 +38,9 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #00081B;
     --foreground: #ededed;
+    --text-area: #DDE5F8;
   }
 }
 
